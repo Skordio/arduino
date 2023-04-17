@@ -1,16 +1,17 @@
-#include <Wire.h>
-#include <MCP4725.h>
+#include <TinyWireM.h>
+#include <Adafruit_MCP4725.h>
 
-MCP4725 dac;
+Adafruit_MCP4725 dac;
 
-void setup() {
-  Wire.begin();  // Initialize I2C
+void setup(void) {
+  TinyWireM.begin();  // Initialize TinyWireM
   Serial.begin(9600);
   Serial.println("MCP4725 Test");
-  dac.begin(0x60);  // MCP4725A1 address is 0x60 (ADDR pin tied to GND)
+  
+  dac.begin(0x60);    // MCP4725 address is 0x60 (ADDR pin tied to GND)
 }
 
-void loop() {
+void loop(void) {
   dac.setVoltage((1 * 4095) / 5, false);  // Set voltage to 1V
   delay(1000);
   dac.setVoltage((2 * 4095) / 5, false);  // Set voltage to 2V
